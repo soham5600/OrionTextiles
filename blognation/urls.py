@@ -10,7 +10,7 @@ urlpatterns = [
 	path("blog_list",views.blog_list,name="blog_list"),
 	path("customers",views.customersview,name="customers"),
 	path("query",views.queryview,name="query"),
-	path("query",views.gtaview,name="gta"),
+	path("gta",views.gtaview,name="gta"),
 
    
        ]
