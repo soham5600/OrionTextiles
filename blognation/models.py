@@ -13,4 +13,8 @@ class Data(models.Model):
 	cloth=models.CharField(max_length=100,choices=CLOTH_CHOICES,default="1")
 	dimension=models.DecimalField(max_digits=100,decimal_places=3)
 
-#Soham@1234
+class Feedback(models.Model):
+	name2=models.CharField(max_length=10000000000000000)
+	review=models.CharField(max_length=1000000000000000)
+	
+# #Soham@1234

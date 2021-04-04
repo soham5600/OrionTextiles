@@ -1,38 +1,6 @@
+{% extends 'blognation/index.html' %}
 {% load static %}
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Soham</title>
-<h1 style="color:rgb(255, 254, 254); text-align: center; text-shadow: 2px 2px grey;">Soham's Website</h1>
-
-<style>
-  
-p{color:blue; text-align: center;}
-a{color:red;}
-body {background-color: rgb(44, 38, 35);} 
-</style> 
-<link rel="stylesheet" href="{% static 'styles.css' %}">
-</head>
-
-<body id="page-top"> 
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top" ><img src="{% static 'navbar-logo.svg' %}" alt=""/></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+{% block content %} 
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading">Welcome To Our Studio!</div>
@@ -40,135 +8,6 @@ body {background-color: rgb(44, 38, 35);}
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
             </div>
         </header>
-<section class="page-section" id="services">
-            <div class="container">
-                <div class="text-center">
-                    <p> This is a simulation of projectile of a ball thrown from a cliff. </p>
-                    <div style="width:1000px; margin-left:auto; margin-right:auto;">
-                        <img src={% static 'angrybg.png' %}" width=1000 height=400 style="position:absolute;">
-                        <canvas id="theCanvas" style=" width:1000px; height:400px; position:relative;">Ready for some animation.</canvas>
-                    </div> sit amet consectetur.</h3>
-                                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">E-Commerce</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Responsive Design</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Web Security</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-    
-    <div style="text-align: center;">
-      <input type="button" id="" onclick="fireProjectile();" value="Fire">
-      <input type="button" id="" onclick="freeze();" value="Freeze">
-      <input type="button" id="" onclick="moveProjectile();" value="Resume">
-      <p>initial speed: <input type="range" id="speedSlider" min="0" max="80" step="1" value="30" oninput="showSpeed();" onchange="showSpeed();">
-      <span id="speedReadout">30</span> m/s</p>
-      <p>initial angle: <input type="range" id="angleSlide" min="0" max="80" step="1" value="30" oninput="showAngle();" onchange="showSpeed();">
-      <span id="angleReadout">30</span> m/s</p>
-      <p>simulation speed: <input type="range" id="hurrySlider" min="0" max="80" step="1" value="30">
-      
-
-    </div>
-    <script>
-       var ballCanvas = document.getElementById("theCanvas");
-var ballContext = ballCanvas.getContext("2d");
-var traceContext = document.getElementById("traceCanvas").getContext("2d");
-
-var gravity = 9.81;        // grav. constant m/s/s
-var dt = 0.1;              // time step in secondsb
-
-// origin in pixels
-var ox = 170;
-var oy = 200;
-var metersPerPixel = 0.5;  // depends on the image, adjust to suit, smaller gives faster movement
-
-var t=0;
-var x=0;
-var y=0;
-var vx=0;
-var vy=0;
-
-var speedSlider = document.getElementById("speedSlider");
-var angleSlider = document.getElementById("angleSlider");
-var hurrySlider = document.getElementById("hurrySlider");
-var speedReadout = document.getElementById("speedReadout");
-var angleReadout = document.getElementById("angleReadout");
-var timer;
-
-var birdImage = new Image();
-birdImage.src = 'bird.png';
-
-setTimeout(drawProjectile,500); // initial draw after everything is loaded
-
-function showSpeed() {
-    speedReadout.innerHTML = speedSlider.value;
-} 
-
-function showAngle() {
-    angleReadout.innerHTML = angleSlider.value;
-}
-
-function freeze() {
-  window.clearTimeout(timer);
-  timer=null;
-}
-
-function fireProjectile() {
-    if (timer) freeze();
-  x = 0;
-    y = 0;
-  t = 0;
-    var v = Number(speedSlider.value);
-    var a = Number(angleSlider.value);
-  vx = v*Math.cos(a*Math.PI/180);
-  vy = v*Math.sin(a*Math.PI/180);
-    moveProjectile();
-}
-
-
-function drawProjectile() {
-    x = vx*t;
-  y = vy*t-.5*gravity*t*t;
-    var px = ox + x/metersPerPixel;
-    var py = oy - y/metersPerPixel;
-  ballContext.clearRect(0, 0, ballCanvas.width, ballCanvas.height);
-    traceContext.beginPath();
-    traceContext.arc(px, py, 1, 0, 2*Math.PI);
-    traceContext.fillStyle = "orange";
-    traceContext.fill();
-  if (birdImage.complete) ballContext.drawImage(birdImage,px-25,py-25);
-}
-
-function moveProjectile() {
-  t += dt;
-  drawProjectile();
-  if (timer) window.clearTimeout(timer);
-    var h = Number(hurrySlider.value);
-    timer = window.setTimeout(moveProjectile, dt*1000/h);
-}       </script>
-{% block content %}
 <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
@@ -375,16 +214,16 @@ function moveProjectile() {
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'img/logos/envato.jpg' %}" alt="" /></a>
+                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'assets/img/logos/envato.jpg' %}" alt="" /></a>
                     </div>
                     <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'img/logos/designmodo.jpg' %}" alt="" /></a>
+                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'assets/img/logos/designmodo.jpg' %}" alt="" /></a>
                     </div>
                     <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'img/logos/themeforest.jpg' %}" alt="" /></a>
+                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'assets/img/logos/themeforest.jpg' %}" alt="" /></a>
                     </div>
                     <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'img/logos/creative-market.jpg' %}" alt="" /></a>
+                        <a href="#!"><img class="img-fluid d-block mx-auto" src="{% static 'assets/img/logos/creative-market.jpg' %}" alt="" /></a>
                     </div>
                 </div>
             </div>
